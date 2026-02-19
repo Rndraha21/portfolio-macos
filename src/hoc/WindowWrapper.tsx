@@ -37,7 +37,13 @@ const WindowWrapper = <P extends object>(
       const el = ref.current;
       if (!el) return;
 
+      const header = el.querySelector(".window-header");
+
       const [instance] = Draggable.create(el, {
+        trigger: header,
+        dragClickables: true,
+        allowEventDefault: true,
+        clickableTest: (el) => el.tagName.toLowerCase() === "input",
         onPress: () => {
           focusWindow(windowKey);
         },
